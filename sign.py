@@ -14,11 +14,7 @@ def sign(m):
     # generate signature
     message = encode_defunct(text=m)
     signed_message = w3.eth.account.sign_message(message, private_key = private_key)
-    print(signed_message)
 
     assert isinstance(signed_message, eth_account.datastructures.SignedMessage)
 
     return eth_address, signed_message
-
-m = "test!"
-sign(m)
