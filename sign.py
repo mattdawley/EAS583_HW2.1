@@ -6,15 +6,19 @@ from eth_account.messages import encode_defunct
 def sign(m):
     w3 = Web3()
     # create an eth account and recover the address (derived from the public key) and private key
-    acct = eth_account.Account.create()
-
+    acct = w3.eth.account.create()
 
     eth_address = acct.address  # Eth account
     private_key = acct.key
 
     # generate signature
-    signed_message = eth_account.sign_message(m, private_key = private_key)
+    message = encode_defunct(text=m)
+    signed_message = w3.eth.account.sign_message(message, private_key = private_key)
+    print(signed_message)
 
     assert isinstance(signed_message, eth_account.datastructures.SignedMessage)
 
     return eth_address, signed_message
+
+m = "test!"
+sign(m)
